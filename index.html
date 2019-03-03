@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="st.css">
+<script src="angular.min.js"></script>
+</head>
+<body>
+<style>
+body {
+	background-color: #0a0a0a;
+	outline: none;
+	font-family: sans-serif;
+}
+#tab {
+	position: relative;
+	width: 300px;
+	height: 300px;
+	margin: 0 auto;
+	margin-top: 100px;
+	background-color: #0a0a0a;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table tr:not(:first-child) {
+	color: #ac88e6;
+}
+
+table td {
+	padding: 5px 0;
+}
+
+table tr:first-child td:hover {
+	cursor: pointer;
+}
+</style>
+<div id="tab">
+<table>
+	<tr style="color: #55b0f1; background-color: #000">
+		<td ng-click="sortBy('name')">Name</td>
+		<td ng-click="sortBy('phone')">Phone</td>
+		<td ng-click="sortBy('age')">Age</td>
+	</tr>
+	<tr ng-repeat="x in meow | orderBy:o:r">
+		<td>{{x.name}}</td>
+		<td>{{x.phone}}</td>
+		<td>{{x.age}}</td>
+	</tr>
+</table>
+</div>
+	
+</body>
+<script>
+	angular.module('app',  [])
+	.run(($rootScope)=>{
+		$rootScope.meow = [
+		    {name: 'John',   phone: '555-1212',  age: 10},
+		    {name: 'Mary',   phone: '555-9876',  age: 19},
+		    {name: 'Mike',   phone: '555-4321',  age: 21},
+		    {name: 'Adam',   phone: '555-5678',  age: 35},
+		    {name: 'Julie',  phone: '555-8765',  age: 29}
+		  ];
+		  $rootScope.o = "name";
+		  $rootScope.r = false;
+		  $rootScope.sortBy = function(prop) {
+		  	$rootScope.o == prop ? $rootScope.r = !$rootScope.r : $rootScope.r = false;
+		  	$rootScope.o = prop;
+		  }
+	});
+</script>
+</html>
